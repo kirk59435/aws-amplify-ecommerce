@@ -20,6 +20,7 @@ function Checkout(props) {
     const [card, setCard] = useState(0)
     const [totalPurchase, setTotal] = useState(0)
     const [orderComplete, setOrderComplete] = useState(false)
+    const [checkOut, setCheckOut] = useState(false)
 
     var {user, cart, items, clearCart} = useContext(AppContext)
 
@@ -30,6 +31,7 @@ function Checkout(props) {
     }
 
     function submitOrder() {
+        // setCheckOut(true)
         setOrderComplete(true)
     }
 
@@ -37,7 +39,6 @@ function Checkout(props) {
         function calculateTotal() {
             var total = 0
             var _item = null
-    
             cart.items.map((item) => {
                 var _product = items.filter(function (el) {
                     return el.id === item.id
@@ -57,27 +58,27 @@ function Checkout(props) {
 
     useEffect(() => {
         if (orderComplete) {
-            Analytics.updateEndpoint({
-                attributes: {
-                    hasShoppingCart: ['false'],
-                    completedOrder: ['true']
-                },
-                metrics: {
-                    itemsInCart: 0,
-                    orderNumber: "1001"
-                }
-            })
+            // Analytics.updateEndpoint({
+            //     attributes: {
+            //         hasShoppingCart: ['false'],
+            //         completedOrder: ['true']
+            //     },
+            //     metrics: {
+            //         itemsInCart: 0,
+            //         orderNumber: "1001"
+            //     }
+            // })
 
             console.log("Purchase price", totalPurchase)
 
-            var _mTotal = parseFloat(totalPurchase).toFixed(2)
-            Analytics.record('_monetization.purchase', {
-                _currency: 'USD',
-                _product_id: 'XYZ',
-              }, {
-                _item_price: _mTotal,
-                _quantity: 1.0,
-              })
+            // var _mTotal = parseFloat(totalPurchase).toFixed(2)
+            // Analytics.record('_monetization.purchase', {
+            //     _currency: 'USD',
+            //     _product_id: 'XYZ',
+            //   }, {
+            //     _item_price: _mTotal,
+            //     _quantity: 1.0,
+            //   })
 
             clearCart()
 
@@ -111,6 +112,19 @@ function Checkout(props) {
                     </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                {/* <Dialog title="Community Project"
+                        visible = { checkOut }
+                        size = "large"
+                    >
+                    <Dialog.Body>
+                    
+                    </Dialog.Body>
+                    <Dialog.Footer>
+                        <Button onClick={() => setCheckOut(false)}>
+                        OK
+                        </Button>
+                    </Dialog.Footer>
+                </Dialog> */}
             </div>
         </div>
     )

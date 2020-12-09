@@ -19,7 +19,7 @@ function Product(props) {
     const { params } = props.match
 
     var _product = items.filter(function (el) {
-        return el.id === parseInt(params.id)
+        return el.id === params.id
     })
 
     var product = ""
@@ -38,14 +38,14 @@ function Product(props) {
     function addItem(product, quantity) {
         addItemToCart(product, quantity)
 
-        Analytics.updateEndpoint({
-            attributes: {
-                hasShoppingCart: ['true']
-            },
-            metrics: {
-                itemsInCart: cart.items.length
-            }
-        })
+        // Analytics.updateEndpoint({
+        //     attributes: {
+        //         hasShoppingCart: ['true']
+        //     },
+        //     metrics: {
+        //         itemsInCart: cart.items.length
+        //     }
+        // })
     }
 
     return (

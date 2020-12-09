@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "awsamplifyecommerce",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito539aff3a",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "schemaGraphql": "s3://awsamplifyecommerce-20201209103848-deployment/amplify-appsync-files/schema.graphql.1607541756742",
+    "ResolverBucket": "awsamplifyecommerce-20201209103848-deployment",
+    "ResolverRootKey": "amplify-appsync-files",
+    "DeploymentTimestamp": "1607541756742"
+}

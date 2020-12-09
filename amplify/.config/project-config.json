@@ -1,17 +1,20 @@
 {
     "projectName": "awsamplifyecommerce",
-    "version": "2.0",
-    "frontend": "javascript",
+    "projectPath": "C:\\Users\\Haoxiang Li\\Desktop\\aws-amplify-ecommerce",
+    "defaultEditor": "code",
+    "frontendHandler": {
+        "javascript": "C:\\Users\\Haoxiang Li\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-frontend-javascript"
+    },
     "javascript": {
         "framework": "react",
         "config": {
             "SourceDir": "src",
             "DistributionDir": "build",
-            "BuildCommand": "npm run-script build",
-            "StartCommand": "npm run-script start"
+            "BuildCommand": "npm.cmd run-script build",
+            "StartCommand": "npm.cmd run-script start"
         }
     },
-    "providers": [
-        "awscloudformation"
-    ]
+    "providers": {
+        "awscloudformation": "C:\\Users\\Haoxiang Li\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-provider-awscloudformation"
+    }
 }

@@ -1,0 +1,22 @@
+type Product @model {
+  id: ID!
+  name: String!
+  image: String
+  mainImage: String
+  price: Float!
+  stars: Float!
+  info: [String]
+  type: String
+  title: String
+}
+
+type Project @model {
+  id: ID!
+  image: String
+  name: String!
+  amount: Float!
+  process: Float!
+  createdAt: String
+  zipCode: Int!
+}
+

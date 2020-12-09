@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import React, {useEffect, useContext} from 'react'
-import { Analytics, Auth, API } from 'aws-amplify'
+import { Analytics, Auth, API, graphqlOperation } from 'aws-amplify'
+import { listProducts } from '../graphql/queries'
 import isoCountries from '../config/isoCountries'
 import AppContext from '../context/AppContext'
 
@@ -11,15 +12,25 @@ function InitState() {
 
     useEffect(() => {
         if (items.length === 0) {
-            API.get('awsamplifyecommerceapi', '/items')
-            .then(response => {
-                addItems(response.data)
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
+            getProducts()
+            // API.get('awsamplifyecommerceapi', '/items')
+            // .then(response => {
+            //     addItems(response.data)
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // })
         }
     }, [items.length, addItems])
+
+    const getProducts = async () => {
+        try {
+            const result = await API.graphql(graphqlOperation(listProducts))
+            addItems(result.data.listProducts.items)
+        } catch(err) {
+            console.error('Get item Error: ', err)
+        }
+    }
 
     useEffect(() => {
         Auth.currentAuthenticatedUser()
@@ -39,26 +50,26 @@ function InitState() {
                         countryCode = isoCountries[data.attributes['custom:country']]
                     }
 
-                    Analytics.updateEndpoint({
-                        ChannelType: 'EMAIL',
-                        Address: data.attributes.email,
-                        location: {
-                            city: data.attributes['custom:city'],
-                            country: countryCode,
-                            postalCode: data.attributes['custom:postcode'],
-                            region: data.attributes['custom:state']
-                        },
-                        optOut: 'NONE',
-                        attributes: {
-                            firstName: [data.attributes.given_name],
-                            hasShoppingCart: ['false'],
-                            completedOrder: ['false']
-                        },
-                        metrics: {
-                            itemsInCart: 0,
-                            orderNumber: "0"
-                        }
-                    })
+                    // Analytics.updateEndpoint({
+                    //     ChannelType: 'EMAIL',
+                    //     Address: data.attributes.email,
+                    //     location: {
+                    //         city: data.attributes['custom:city'],
+                    //         country: countryCode,
+                    //         postalCode: data.attributes['custom:postcode'],
+                    //         region: data.attributes['custom:state']
+                    //     },
+                    //     optOut: 'NONE',
+                    //     attributes: {
+                    //         firstName: [data.attributes.given_name],
+                    //         hasShoppingCart: ['false'],
+                    //         completedOrder: ['false']
+                    //     },
+                    //     metrics: {
+                    //         itemsInCart: 0,
+                    //         orderNumber: "0"
+                    //     }
+                    // })
 
                     storeUser(data.attributes)
                 }

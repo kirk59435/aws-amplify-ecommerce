@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Amplify, { Analytics } from 'aws-amplify'
 import * as serviceWorker from './serviceWorker';
-
+import '@aws-amplify/ui/dist/style.css';
 import AppProvider from './context/AppProvider'
 
 // Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,12 +17,12 @@ import PlacedOrder from './pages/PlacedOrder'
 import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
-Analytics.record('Store_Load');
+// Analytics.record('Store_Load');
         
-Analytics.autoTrack('pageView', {
-    enable: true,
-    type: 'SPA'
-})
+// Analytics.autoTrack('pageView', {
+//     enable: true,
+//     type: 'SPA'
+// })
 
 const routing = (
     <AppProvider>
