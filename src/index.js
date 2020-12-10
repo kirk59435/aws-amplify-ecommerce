@@ -13,7 +13,6 @@ import App from './App';
 import Product from './pages/Product'
 import Checkout from './pages/Checkout'
 import PlacedOrder from './pages/PlacedOrder'
-import CommunityProject from './pages/CommunityProject'
 
 import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
