@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import React, {useState, useEffect, useContext} from 'react'
-import { Grid } from 'semantic-ui-react'
-import {Analytics} from 'aws-amplify';
+import { Grid, Form, Radio, Input, Label } from 'semantic-ui-react'
+import {Analytics, API, } from 'aws-amplify';
 
 import AppContext from '../context/AppContext'
 
@@ -20,9 +20,12 @@ function Checkout(props) {
     const [card, setCard] = useState(0)
     const [totalPurchase, setTotal] = useState(0)
     const [orderComplete, setOrderComplete] = useState(false)
-    const [checkOut, setCheckOut] = useState(false)
+    const [method, setMethod] = useState("noDonate")
+    const [donate, setDonate] = useState(0)
+
 
     var {user, cart, items, clearCart} = useContext(AppContext)
+    console.log('user info', typeof(getAtt('custom:postcode')));
 
     const quantText = (cart.items.length === 1) ? '1 item' : cart.items.length + ' items'
 
@@ -34,6 +37,21 @@ function Checkout(props) {
         // setCheckOut(true)
         setOrderComplete(true)
     }
+   
+    function handleDonate(value) {
+        console.log('what', value)
+        // setMethod(value);
+    }
+    
+    function getProjects() {
+        // Search Project base on Zip Code
+
+    }
+
+    function getAtt(name) {
+        return user ? user[name] : ""
+    }
+    
 
     useEffect(() => {
         function calculateTotal() {
@@ -48,13 +66,33 @@ function Checkout(props) {
                 total += (_item.price * item.quantity)
                 return null
             })
+
+            switch (method) {
+                case "roundUp":
+                    const newtotal = parseFloat(Math.ceil(total)).toFixed(2)
+                    setDonate(parseFloat(newtotal - total).toFixed(2))
+                    total = newtotal
+                    break
+                
+                case "other":
+    
+                    break
+    
+                case "noDonate":
+                    setDonate(0)
+                    break
+                
+                default:
+                    return;           
+            }
+             
     
             setTotal(parseFloat(total).toFixed(2))
             return parseFloat(total).toFixed(2)
         }
 
         calculateTotal()
-    }, [cart.items, items])
+    }, [cart.items, items, method, donate])
 
     useEffect(() => {
         if (orderComplete) {
@@ -112,19 +150,54 @@ function Checkout(props) {
                     </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                {/* <Dialog title="Community Project"
-                        visible = { checkOut }
-                        size = "large"
-                    >
-                    <Dialog.Body>
-                    
-                    </Dialog.Body>
-                    <Dialog.Footer>
-                        <Button onClick={() => setCheckOut(false)}>
-                        OK
-                        </Button>
-                    </Dialog.Footer>
-                </Dialog> */}
+                <Grid colums={3}>
+                    <Grid.Row>
+                        <Grid.Column width={5}>Project1</Grid.Column>
+                        <Grid.Column width={5}>Project2</Grid.Column>
+                        <Grid.Column width={5}>Project3</Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <b>Do you want support your Community?</b>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Form>
+                            <Form.Field>
+                                Donate Amount: <b>{donate}</b>
+                            </Form.Field>
+                            <Form.Field>
+                            <Radio
+                                label='Round Up'
+                                value='roundUp'
+                                name='radioGroup'
+                                checked={method === "roundUp"}
+                                // onChange={handleDonate("roundUp")}
+                            />
+                            </Form.Field>
+                            <Form.Field>
+                            <Radio
+                                label='Other'
+                                value='Other'
+                                name='radioGroup'
+                                checked={method === "other"}
+                                // onChange={handleDonate("other")}
+                            />
+                            <Input labelPosition='right' type='number' placeholder='0' disabled={method !== "other"}>
+                                <Label basic>$</Label>
+                                <input />
+                            </Input>
+                            </Form.Field>
+                            <Form.Field>
+                            <Radio
+                                label='Not this time'
+                                value='noDonate'
+                                name='radioGroup'
+                                checked={method === "noDonate"}
+                                // onChange={handleDonate("noDonate")}
+                            />
+                            </Form.Field>
+                        </Form>
+                    </Grid.Row>
+                </Grid>
             </div>
         </div>
     )

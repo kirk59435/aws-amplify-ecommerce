@@ -14,9 +14,10 @@ type Project @model {
   id: ID!
   image: String
   name: String!
+  description: String!
   amount: Float!
   process: Float!
   createdAt: String
-  zipCode: Int!
+  zipCode: String!
 }
 

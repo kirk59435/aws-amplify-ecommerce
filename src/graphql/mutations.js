@@ -48,6 +48,7 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
     id
     image
     name
+    description
     amount
     process
     createdAt
@@ -60,6 +61,7 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
     id
     image
     name
+    description
     amount
     process
     createdAt
@@ -72,6 +74,7 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
     id
     image
     name
+    description
     amount
     process
     createdAt

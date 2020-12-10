@@ -48,6 +48,7 @@ export const onCreateProject = `subscription OnCreateProject {
     id
     image
     name
+    description
     amount
     process
     createdAt
@@ -60,6 +61,7 @@ export const onUpdateProject = `subscription OnUpdateProject {
     id
     image
     name
+    description
     amount
     process
     createdAt
@@ -72,6 +74,7 @@ export const onDeleteProject = `subscription OnDeleteProject {
     id
     image
     name
+    description
     amount
     process
     createdAt

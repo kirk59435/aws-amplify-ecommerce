@@ -41,6 +41,7 @@ export const getProject = `query GetProject($id: ID!) {
     id
     image
     name
+    description
     amount
     process
     createdAt
@@ -58,6 +59,7 @@ export const listProjects = `query ListProjects(
       id
       image
       name
+      description
       amount
       process
       createdAt
