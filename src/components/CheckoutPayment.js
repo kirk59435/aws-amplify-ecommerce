@@ -6,8 +6,8 @@ import { Card, Button, Divider, Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 function CheckoutPayment(props) {
-    const {total} = props
-
+    const {total, donate} = props
+    const itemTotal = total - donate
     return(
         <div>
             <Card fluid>
@@ -19,10 +19,12 @@ function CheckoutPayment(props) {
                         <Grid.Row>
                             <Grid.Column floated='left' width={8}>
                                 <SummaryText>Items:</SummaryText>
+                                <SummaryText>Donation:</SummaryText>
                                 <SummaryText>Shipping & handling:</SummaryText>
                             </Grid.Column>
                             <Grid.Column floated='left' textAlign='right' width={1}>
-                                <SummaryText>${total}</SummaryText>
+                                <SummaryText>${itemTotal}</SummaryText>
+                                <SummaryText>${donate}</SummaryText>
                                 <SummaryText>$0.00</SummaryText>
                             </Grid.Column>
                         </Grid.Row>

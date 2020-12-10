@@ -150,6 +150,7 @@ function Checkout(props) {
                                          user={user}
                                          cart={cart}
                                          total={totalPurchase}
+                                         donate={donate}
                                          />
                     </Grid.Column>
                     </Grid.Row>
