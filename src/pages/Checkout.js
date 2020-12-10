@@ -38,9 +38,13 @@ function Checkout(props) {
         setOrderComplete(true)
     }
    
-    function handleDonate(value) {
-        console.log('what', value)
-        // setMethod(value);
+    function handleDonateMethod(value) {
+        setMethod(value);
+    }
+
+    function handleDonateAmount() {
+        console.log('check event', )
+
     }
     
     function getProjects() {
@@ -170,7 +174,7 @@ function Checkout(props) {
                                 value='roundUp'
                                 name='radioGroup'
                                 checked={method === "roundUp"}
-                                // onChange={handleDonate("roundUp")}
+                                onChange={() =>handleDonateMethod("roundUp")}
                             />
                             </Form.Field>
                             <Form.Field>
@@ -179,9 +183,9 @@ function Checkout(props) {
                                 value='Other'
                                 name='radioGroup'
                                 checked={method === "other"}
-                                // onChange={handleDonate("other")}
+                                onChange={() => handleDonateMethod("other")}
                             />
-                            <Input labelPosition='right' type='number' placeholder='0' disabled={method !== "other"}>
+                            <Input labelPosition='left' type='number' placeholder='0' disabled={method !== "other"} onChange={()=>handleDonateAmount}>
                                 <Label basic>$</Label>
                                 <input />
                             </Input>
@@ -192,7 +196,7 @@ function Checkout(props) {
                                 value='noDonate'
                                 name='radioGroup'
                                 checked={method === "noDonate"}
-                                // onChange={handleDonate("noDonate")}
+                                onChange={() => handleDonateMethod("noDonate")}
                             />
                             </Form.Field>
                         </Form>
