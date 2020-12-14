@@ -41,11 +41,6 @@ function Checkout(props) {
     function handleDonateMethod(value) {
         setMethod(value);
     }
-
-    function handleDonateAmount() {
-        console.log('check event', )
-
-    }
     
     function getProjects() {
         // Search Project base on Zip Code
@@ -78,10 +73,21 @@ function Checkout(props) {
                     total = newtotal
                     break
                 
-                case "other":
-    
+                case "donate10":
+                    total+=10
+                    setDonate(10)
                     break
-    
+                
+                case "donate20":
+                    total+=20
+                    setDonate(20)
+                    break
+
+                case "donate50":
+                    total+=50
+                    setDonate(50)
+                    break
+
                 case "noDonate":
                     setDonate(0)
                     break
@@ -180,16 +186,30 @@ function Checkout(props) {
                             </Form.Field>
                             <Form.Field>
                             <Radio
-                                label='Other'
-                                value='Other'
+                                label='Donate $10'
+                                value='donate10'
                                 name='radioGroup'
-                                checked={method === "other"}
-                                onChange={() => handleDonateMethod("other")}
+                                checked={method === "donate10"}
+                                onChange={() => handleDonateMethod("donate10")}
                             />
-                            <Input labelPosition='left' type='number' placeholder='0' disabled={method !== "other"} onChange={()=>handleDonateAmount}>
-                                <Label basic>$</Label>
-                                <input />
-                            </Input>
+                            </Form.Field>
+                            <Form.Field>
+                            <Radio
+                                label='Donate $20'
+                                value='donate20'
+                                name='radioGroup'
+                                checked={method === "donate20"}
+                                onChange={() => handleDonateMethod("donate20")}
+                            />
+                            </Form.Field>
+                            <Form.Field>
+                            <Radio
+                                label='Donate $50'
+                                value='donate50'
+                                name='radioGroup'
+                                checked={method === "donate50"}
+                                onChange={() => handleDonateMethod("donate50")}
+                            />
                             </Form.Field>
                             <Form.Field>
                             <Radio
